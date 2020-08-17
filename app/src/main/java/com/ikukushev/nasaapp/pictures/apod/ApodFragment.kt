@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ikukushev.nasaapp.R
 import com.ikukushev.nasaapp.core.data.Result
+import com.ikukushev.nasaapp.core.displayImageWithRatio
 import com.ikukushev.nasaapp.core.displayUrl
 import com.ikukushev.nasaapp.pictures.apod.data.Apod
 import com.ikukushev.nasaapp.pictures.apod.data.ApodRoomEntity
@@ -27,6 +29,7 @@ class ApodFragment : Fragment() {
 
     @Inject
     lateinit var db: ApodDatabase
+    lateinit var apodAdapter: ApodAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +41,16 @@ class ApodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        apodAdapter = ApodAdapter()
+        apodList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = apodAdapter
+        }
+
         viewModel.apodData.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    apodView.displayUrl(result.data.url)
+                    apodAdapter.setItems(listOf(result.data))
                 }
             }
         })
