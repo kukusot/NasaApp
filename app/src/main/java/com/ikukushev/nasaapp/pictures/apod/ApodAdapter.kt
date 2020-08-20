@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ikukushev.nasaapp.R
 import com.ikukushev.nasaapp.core.displayImageWithRatio
-import com.ikukushev.nasaapp.pictures.apod.data.Apod
+import com.ikukushev.nasaapp.pictures.apod.data.ApodListItem
 import kotlinx.android.synthetic.main.item_apod.view.*
 
 class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ApodViewHolder>() {
 
-    val items: MutableList<Apod> = mutableListOf<Apod>()
+    val items: MutableList<ApodListItem> = mutableListOf()
 
-    fun setItems(apods: List<Apod>) {
+    fun setItems(apods: List<ApodListItem>) {
         items.clear()
         items.addAll(apods)
         notifyDataSetChanged()
@@ -35,8 +35,8 @@ class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ApodViewHolder>() {
 
         private val image = itemView.image
 
-        fun onBind(apod: Apod) {
-            image.displayImageWithRatio(apod.hdUrl)
+        fun onBind(apod: ApodListItem) {
+            image.displayImageWithRatio(apod.url)
         }
     }
 }

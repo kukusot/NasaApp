@@ -2,6 +2,7 @@ package com.ikukushev.nasaapp.pictures.apod.di
 
 import android.content.Context
 import androidx.room.Room
+import com.ikukushev.nasaapp.pictures.apod.db.ApodDao
 import com.ikukushev.nasaapp.pictures.apod.db.ApodDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,5 +19,9 @@ class ApodModule {
     @Provides
     fun provideApodDatabase(@ApplicationContext context: Context): ApodDatabase =
         Room.databaseBuilder(context, ApodDatabase::class.java, "apod.db").build()
+
+    @Singleton
+    @Provides
+    fun provideApodDao(database: ApodDatabase): ApodDao = database.apodDao()
 
 }

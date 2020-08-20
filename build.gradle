@@ -6,6 +6,7 @@ buildscript {
     ext.version_retrofit = "2.9.0"
     ext.version_okhttp = "4.8.0"
     ext.version_room = "2.2.5"
+    ext.version_work ="2.4.0"
 
 
     repositories {
